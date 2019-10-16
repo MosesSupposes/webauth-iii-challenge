@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+const jwtSecret = require('../config/secrets').jwtSecret
 const usersModel = require('../models/usersModel')
 const withCatch = require('../../utils/withCatch')
 
@@ -50,14 +51,14 @@ module.exports = class UsersController {
         }
 
         function generateToken() {
-            const secret = process.env.JWT_SECRET || 'this is not secret.'
+
             const payload = {
                 username: user.username,
                 subject: user.id,
             }
             const options = { expiresIn: '1h' }
 
-            return jwt.sign(payload, secret, options)
+            return jwt.sign(payload, jwtSecret, options)
         }
     }
 
