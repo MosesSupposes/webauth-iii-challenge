@@ -1,5 +1,4 @@
 const db = require('../data/dbClient')
-const bcrypt = require('bcrypt')
 
 module.exports = (function usersModel() {
     function all() {
@@ -18,10 +17,6 @@ module.exports = (function usersModel() {
     } 
 
     function update(username, changes) {
-        if (changes.password) {
-            changes.password = bcrypt.hashSync(changes.password, 8)
-        }
-
         await db('users').update(changes)
         return db('users').where({username})
     }
