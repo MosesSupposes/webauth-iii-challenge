@@ -1,7 +1,7 @@
 const express = require('express')
 
 const UsersController = require('../controllers/UsersController')
-const { validateFields } = require('../knexfile')
+const { validateFields } = require('../middleware/validateFields')
 
 const router = express.Router()
 
