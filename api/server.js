@@ -27,7 +27,7 @@ server.use(function errorHandler(error, req, res, next) {
     error.status = error.status || 500
     error.message = error.message || 'Internal server error'
 
-    res.status(status).json({error: { errorMsg } })
+    res.status(error.status).json({error: { message: error.message } })
 })
 
 
