@@ -1,9 +1,9 @@
 const express = require('express')
 
 const UsersController = require('../controllers/UsersController')
-const validateFields = require('../knexfile')
+const { validateFields } = require('../knexfile')
 
-const router = express.router
+const router = express.Router()
 
 router.route('/register')
     .all(validateFields(['username', 'password']))
@@ -12,3 +12,5 @@ router.route('/register')
 router.route('/login')
     .all(validateFields(['username', 'password']))
     .post(UsersController.login)
+
+module.exports = router

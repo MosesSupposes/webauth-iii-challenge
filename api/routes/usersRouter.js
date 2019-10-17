@@ -8,3 +8,5 @@ const router = express.Router()
 router.route('/')
     .all(requireValidToken)
     .get(UsersController.index)
+
+module.exports = router

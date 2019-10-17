@@ -13,3 +13,7 @@ const validateFields = (fields) => (req, res, next) =>  {
         next(error)
     }
 } 
+
+module.exports = {
+    validateFields
+}
