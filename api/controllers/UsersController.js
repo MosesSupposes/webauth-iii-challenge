@@ -22,14 +22,17 @@ module.exports = class UsersController {
         bcrypt.hash(password, 8, async (err, encryptedPw) => {
             if (err) res.status(500).json({ error: { message:'Internal server error.'  } })
             else {
-                const [err, newUser]  = await withCatch(
-                    usersModel.create({
+                try {
+                    const newUser = await usersModel.create({
                         username,
                         password: encryptedPw
                     }) 
-                )
-                if (err) res.status(500).json({ error: { message:'Internal server error.'  } })
-                else res.status(200).json(newUser)        
+
+                    res.status(200).json(newUser)        
+                } catch(e) {
+                    res.status(500).json({ error: { message:'Internal server error.'  } })
+                }
+               
             }
         })
     }
@@ -48,6 +51,15 @@ module.exports = class UsersController {
                     token: generateToken()
                 })
             })
+            // if (bcrypt.compareSync(req.body.password, user.password)) {
+            //     res.status(200).json({
+            //         success: 'Welcome ' + user.username + '!',
+            //         user,
+            //         token: generateToken()
+            //     })
+            // } else {
+            //     res.status(400).json({ error: { message: 'Invalid password'} })
+            // }
         }
 
         function generateToken() {
