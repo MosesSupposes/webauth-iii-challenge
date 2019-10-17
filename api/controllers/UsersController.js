@@ -19,7 +19,7 @@ module.exports = class UsersController {
     static async register(req, res) {
         const { username, password } = req.body 
         
-        bcrypt.hash(password, 8, (err, encryptedPw) => {
+        bcrypt.hash(password, 8, async (err, encryptedPw) => {
             if (err) res.status(500).json({ error: { message:'Internal server error.'  } })
             else {
                 const [err, newUser]  = await withCatch(

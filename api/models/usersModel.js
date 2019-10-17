@@ -16,7 +16,7 @@ module.exports = (function usersModel() {
         return findByUsername(user.username)
     } 
 
-    function update(username, changes) {
+    async function update(username, changes) {
         await db('users').update(changes)
         return db('users').where({username})
     }
